@@ -11,20 +11,69 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background: radial-gradient(circle, #1b2735, #090a0f);
     color: white;
-    text-align: center;
 }
 
-header {
-    padding: 30px;
-    font-size: 28px;
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 20px;
     font-weight: bold;
+}
+
+.nav-links a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3498db;
+}
+
+/* SECTIONS */
+.section {
+    padding: 80px 20px;
+    text-align: center;
 }
 
 .subtitle {
     color: #aaa;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
 }
 
+/* BUTTON */
+.cta-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.cta-btn:hover {
+    background: #2980b9;
+}
+
+/* DOWNLOADS */
 .container {
     max-width: 900px;
     margin: auto;
@@ -75,7 +124,9 @@ header {
 }
 
 footer {
+    text-align: center;
     margin-top: 40px;
+    padding: 20px;
     font-size: 12px;
     color: #777;
 }
@@ -84,17 +135,39 @@ footer {
 
 <body>
 
-<header>Maszx GO</header>
-<div class="subtitle">Download Center</div>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Maszx GO</div>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#downloads">Downloads</a>
+        <a href="https://discord.gg/dRRrpRQhw" target="_blank">Discord</a>
+    </div>
+</nav>
 
-<div class="container">
-    <div class="platform-grid" id="platforms"></div>
-</div>
+<!-- HOME -->
+<section id="home" class="section">
+    <h1>Maszx GO 🚀</h1>
+    <p class="subtitle">
+        Powerful. Lightweight. Always updated.<br>
+        Download the latest version for your device and join our growing community.
+    </p>
+
+    <a href="#downloads" class="cta-btn">Get Started</a>
+</section>
+
+<!-- DOWNLOADS -->
+<section id="downloads" class="section">
+    <h2>Download Center</h2>
+    <div class="container">
+        <div class="platform-grid" id="platforms"></div>
+    </div>
+</section>
 
 <footer>© 2022-2026 MaszxGo Systems</footer>
 
 <script>
-// DATA (same as your Express version)
+// DATA
 const downloads = [
     {
         name: "Android",
@@ -122,7 +195,7 @@ const downloads = [
     }
 ];
 
-// RENDER FUNCTION
+// RENDER
 const container = document.getElementById("platforms");
 
 downloads.forEach(p => {
@@ -140,6 +213,15 @@ downloads.forEach(p => {
     `;
 
     container.appendChild(card);
+});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href"))
+            .scrollIntoView({ behavior: "smooth" });
+    });
 });
 </script>
 
