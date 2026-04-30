@@ -9,126 +9,170 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle, #1b2735, #090a0f);
+    background: radial-gradient(circle, #0b1220, #020617);
     color: white;
+    overflow-x: hidden;
+}
+
+/* 🌌 BACKGROUND */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(white 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: moveBg 80s linear infinite;
+    opacity: 0.05;
+    z-index: -1;
+}
+
+@keyframes moveBg {
+    from { transform: translate(0,0); }
+    to { transform: translate(-500px,-500px); }
 }
 
 /* NAVBAR */
 .navbar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 15px 30px;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     backdrop-filter: blur(6px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
 }
 
 .logo {
-    font-size: 20px;
     font-weight: bold;
+    background: linear-gradient(90deg,#3498db,#e74c3c,#2ecc71,#f1c40f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
+/* LINKS */
 .nav-links a {
     margin-left: 20px;
-    text-decoration: none;
     color: white;
-    transition: color 0.3s;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
 .nav-links a:hover {
-    color: #3498db;
+    color: #f1c40f;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section {
     padding: 80px 20px;
     text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s;
+}
+
+.section.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .subtitle {
     color: #aaa;
-    margin-top: 10px;
     max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.7;
-}
-
-/* BUTTON */
-.cta-btn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 20px;
-    background: #3498db;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-}
-
-.cta-btn:hover {
-    background: #2980b9;
-}
-
-/* DOWNLOADS */
-.container {
-    max-width: 900px;
     margin: auto;
-    padding: 20px;
 }
 
-.platform-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-}
-
-.platform-card {
-    background: rgba(255,255,255,0.08);
-    padding: 20px;
-    border-radius: 10px;
-    transition: transform 0.2s;
-}
-
-.platform-card:hover {
-    transform: scale(1.05);
-}
-
-.platform-card img {
-    width: 48px;
-    height: 48px;
-}
-
-.download-btn {
+/* 🌈 BUTTON ULTRA */
+.cta-btn, .download-btn {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 15px;
-    border-radius: 6px;
+    margin-top: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
     text-decoration: none;
-    background: #3498db;
     color: white;
-    cursor: pointer;
+
+    background: linear-gradient(270deg,
+        #3498db,
+        #e74c3c,
+        #2ecc71,
+        #f1c40f
+    );
+
+    background-size: 600% 600%;
+    animation: gradientMove 8s ease infinite, glow 3s infinite;
+    transition: 0.3s;
 }
 
-.download-btn:hover {
-    background: #2980b9;
+.cta-btn:hover, .download-btn:hover {
+    transform: scale(1.1);
+}
+
+/* 🌈 GRADIENT ANIMATION */
+@keyframes gradientMove {
+    0%   { background-position: 0% 50%; }
+    25%  { background-position: 50% 50%; }
+    50%  { background-position: 100% 50%; }
+    75%  { background-position: 50% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ✨ MULTI GLOW */
+@keyframes glow {
+    0% { box-shadow: 0 0 5px #3498db; }
+    25% { box-shadow: 0 0 15px #e74c3c; }
+    50% { box-shadow: 0 0 20px #2ecc71; }
+    75% { box-shadow: 0 0 25px #f1c40f; }
+    100% { box-shadow: 0 0 5px #3498db; }
 }
 
 .download-btn.disabled {
     background: gray;
-    cursor: not-allowed;
-    pointer-events: none;
+    animation: none;
+}
+
+/* GRID */
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* 💎 CARD RAINBOW BORDER */
+.platform-card {
+    padding: 20px;
+    border-radius: 12px;
+    position: relative;
+
+    background: linear-gradient(#111,#111) padding-box,
+                linear-gradient(90deg,
+                    #3498db,
+                    #e74c3c,
+                    #2ecc71,
+                    #f1c40f
+                ) border-box;
+
+    border: 1px solid transparent;
+    transition: 0.4s;
+}
+
+.platform-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow:
+        0 0 15px #3498db,
+        0 0 15px #e74c3c,
+        0 0 15px #2ecc71,
+        0 0 15px #f1c40f;
+}
+
+.platform-card img {
+    width: 48px;
+    margin-bottom: 10px;
 }
 
 /* FOOTER */
 footer {
     text-align: center;
-    margin-top: 40px;
     padding: 20px;
-    font-size: 12px;
     color: #777;
 }
 </style>
@@ -136,7 +180,6 @@ footer {
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">Maszx GO</div>
     <div class="nav-links">
@@ -146,33 +189,15 @@ footer {
     </div>
 </nav>
 
-<!-- HOME -->
 <section id="home" class="section">
     <h1>Maszx GO 🚀</h1>
-
-    <p class="subtitle">
-        Welcome to the official Maszx GO platform — your all-in-one download center for fast, stable, and optimized application releases.
-    </p>
-
-    <p class="subtitle">
-        Maszx GO is designed to deliver a smooth and lightweight experience across all devices including Android, PC, and macOS.
-        We focus on performance, stability, and regular updates to ensure users always get the best version available.
-    </p>
-
-    <p class="subtitle">
-        Stay connected with our growing community, receive updates, and get support directly through our Discord server.
-        New features and improvements are continuously being developed to enhance your experience.
-    </p>
-
+    <p class="subtitle">Fast, stable, and optimized experience.</p>
     <a href="#downloads" class="cta-btn">Get Started</a>
 </section>
 
-<!-- DOWNLOADS -->
 <section id="downloads" class="section">
     <h2>Download Center</h2>
-    <div class="container">
-        <div class="platform-grid" id="platforms"></div>
-    </div>
+    <div class="platform-grid" id="platforms"></div>
 </section>
 
 <footer>© 2022-2026 MaszxGo Systems</footer>
@@ -180,33 +205,12 @@ footer {
 <script>
 // DATA
 const downloads = [
-    {
-        name: "Android",
-        icon: "https://img.icons8.com/color/48/android-os.png",
-        url: "https://www.mediafire.com/file/c1suz7dv537n855/Maszx+GO+-+Beta_1.0.0.apk/file",
-        isDownload: true,
-    },
-    {
-        name: "Android - Offline",
-        icon: "https://img.icons8.com/color/48/android-os.png",
-        url: "https://www.mediafire.com/file/iigz5swq2jobaz4/Maszx+GO+-+Offline_1.0.2.apk/file",
-        isDownload: true,
-    },
-    {
-        name: "PC",
-        icon: "https://img.icons8.com/fluency/48/windows-11.png",
-        url: "",
-        isDownload: false,
-    },
-    {
-        name: "macOS",
-        icon: "https://img.icons8.com/color/48/mac-os.png",
-        url: "",
-        isDownload: false,
-    }
+    {name:"Android",icon:"https://img.icons8.com/color/48/android-os.png",url:"https://www.mediafire.com/file/c1suz7dv537n855/file",isDownload:true},
+    {name:"Android Offline",icon:"https://img.icons8.com/color/48/android-os.png",url:"https://www.mediafire.com/file/iigz5swq2jobaz4/file",isDownload:true},
+    {name:"PC",icon:"https://img.icons8.com/fluency/48/windows-11.png",url:"",isDownload:false},
+    {name:"macOS",icon:"https://img.icons8.com/color/48/mac-os.png",url:"",isDownload:false}
 ];
 
-// RENDER
 const container = document.getElementById("platforms");
 
 downloads.forEach(p => {
@@ -214,7 +218,7 @@ downloads.forEach(p => {
     card.className = "platform-card";
 
     card.innerHTML = `
-        <img src="${p.icon}" alt="${p.name}">
+        <img src="${p.icon}">
         <p>${p.name}</p>
         ${
             p.isDownload
@@ -226,13 +230,24 @@ downloads.forEach(p => {
     container.appendChild(card);
 });
 
-// SMOOTH SCROLL
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute("href"))
-            .scrollIntoView({ behavior: "smooth" });
+// SCROLL ANIMATION
+const sections = document.querySelectorAll(".section");
+
+window.addEventListener("scroll", () => {
+    sections.forEach(sec => {
+        if(sec.getBoundingClientRect().top < window.innerHeight - 100){
+            sec.classList.add("show");
+        }
     });
+});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.onclick=e=>{
+        e.preventDefault();
+        document.querySelector(a.getAttribute("href"))
+        .scrollIntoView({behavior:"smooth"});
+    };
 });
 </script>
 
