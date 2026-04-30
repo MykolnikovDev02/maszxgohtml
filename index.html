@@ -39,6 +39,7 @@ body::before {
     padding: 15px 30px;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(6px);
+    align-items: center;
 }
 
 .logo {
@@ -48,16 +49,19 @@ body::before {
     -webkit-text-fill-color: transparent;
 }
 
-/* LINKS */
-.nav-links a {
-    margin-left: 20px;
+/* LANGUAGE BUTTONS */
+.lang button {
+    margin-left: 5px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #222;
     color: white;
-    text-decoration: none;
-    transition: 0.3s;
 }
 
-.nav-links a:hover {
-    color: #f1c40f;
+.lang button:hover {
+    background: #3498db;
 }
 
 /* SECTION */
@@ -89,13 +93,7 @@ body::before {
     text-decoration: none;
     color: white;
 
-    background: linear-gradient(270deg,
-        #3498db,
-        #e74c3c,
-        #2ecc71,
-        #f1c40f
-    );
-
+    background: linear-gradient(270deg,#3498db,#e74c3c,#2ecc71,#f1c40f);
     background-size: 600% 600%;
     animation: gradientMove 8s ease infinite, glow 3s infinite;
     transition: 0.3s;
@@ -105,22 +103,20 @@ body::before {
     transform: scale(1.1);
 }
 
-/* 🌈 GRADIENT ANIMATION */
+/* GRADIENT */
 @keyframes gradientMove {
-    0%   { background-position: 0% 50%; }
-    25%  { background-position: 50% 50%; }
-    50%  { background-position: 100% 50%; }
-    75%  { background-position: 50% 50%; }
-    100% { background-position: 0% 50%; }
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
-/* ✨ MULTI GLOW */
+/* GLOW */
 @keyframes glow {
-    0% { box-shadow: 0 0 5px #3498db; }
-    25% { box-shadow: 0 0 15px #e74c3c; }
-    50% { box-shadow: 0 0 20px #2ecc71; }
-    75% { box-shadow: 0 0 25px #f1c40f; }
-    100% { box-shadow: 0 0 5px #3498db; }
+    0%{box-shadow:0 0 5px #3498db}
+    25%{box-shadow:0 0 15px #e74c3c}
+    50%{box-shadow:0 0 20px #2ecc71}
+    75%{box-shadow:0 0 25px #f1c40f}
+    100%{box-shadow:0 0 5px #3498db}
 }
 
 .download-btn.disabled {
@@ -131,25 +127,19 @@ body::before {
 /* GRID */
 .platform-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
     gap: 20px;
     max-width: 900px;
     margin: auto;
 }
 
-/* 💎 CARD RAINBOW BORDER */
+/* CARD */
 .platform-card {
     padding: 20px;
     border-radius: 12px;
-    position: relative;
 
     background: linear-gradient(#111,#111) padding-box,
-                linear-gradient(90deg,
-                    #3498db,
-                    #e74c3c,
-                    #2ecc71,
-                    #f1c40f
-                ) border-box;
+    linear-gradient(90deg,#3498db,#e74c3c,#2ecc71,#f1c40f) border-box;
 
     border: 1px solid transparent;
     transition: 0.4s;
@@ -157,11 +147,7 @@ body::before {
 
 .platform-card:hover {
     transform: translateY(-10px) scale(1.05);
-    box-shadow:
-        0 0 15px #3498db,
-        0 0 15px #e74c3c,
-        0 0 15px #2ecc71,
-        0 0 15px #f1c40f;
+    box-shadow: 0 0 15px #3498db,0 0 15px #e74c3c,0 0 15px #2ecc71,0 0 15px #f1c40f;
 }
 
 .platform-card img {
@@ -180,49 +166,79 @@ footer {
 
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">Maszx GO</div>
-    <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#downloads">Downloads</a>
-        <a href="https://discord.gg/hhDBvCe92" target="_blank">Discord</a>
+
+    <div class="lang">
+        <button onclick="setLang('en')">EN</button>
+        <button onclick="setLang('ru')">RU</button>
     </div>
 </nav>
 
+<!-- HOME -->
 <section id="home" class="section">
-    <h1>Maszx GO 🚀</h1>
-    <p class="subtitle">Fast, stable, and optimized experience.</p>
-    <a href="#downloads" class="cta-btn">Get Started</a>
+    <h1 id="title">Maszx GO 🚀</h1>
+    <p class="subtitle" id="desc"></p>
+    <a href="#downloads" class="cta-btn" id="btn"></a>
 </section>
 
+<!-- DOWNLOADS -->
 <section id="downloads" class="section">
-    <h2>Download Center</h2>
+    <h2 id="dlTitle"></h2>
     <div class="platform-grid" id="platforms"></div>
 </section>
 
 <footer>© 2022-2026 MaszxGo Systems</footer>
 
 <script>
-// DATA
+
+/* 🌍 LANGUAGE SYSTEM */
+const lang = {
+    en:{
+        title:"Maszx GO 🚀",
+        desc:"Fast, stable and optimized download platform.",
+        btn:"Get Started",
+        dl:"Download Center"
+    },
+    ru:{
+        title:"Maszx GO 🚀",
+        desc:"Быстрая и стабильная платформа загрузок.",
+        btn:"Начать",
+        dl:"Центр загрузок"
+    }
+};
+
+function setLang(l){
+    document.getElementById("title").innerText = lang[l].title;
+    document.getElementById("desc").innerText = lang[l].desc;
+    document.getElementById("btn").innerText = lang[l].btn;
+    document.getElementById("dlTitle").innerText = lang[l].dl;
+}
+
+/* DEFAULT */
+setLang("en");
+
+/* DOWNLOAD DATA */
 const downloads = [
-    {name:"Android",icon:"https://img.icons8.com/color/48/android-os.png",url:"https://www.mediafire.com/file/c1suz7dv537n855/file",isDownload:true},
-    {name:"Android Offline",icon:"https://img.icons8.com/color/48/android-os.png",url:"https://www.mediafire.com/file/iigz5swq2jobaz4/file",isDownload:true},
+    {name:"Android",icon:"https://img.icons8.com/color/48/android-os.png",url:"#",isDownload:true},
+    {name:"Android Offline",icon:"https://img.icons8.com/color/48/android-os.png",url:"#",isDownload:true},
     {name:"PC",icon:"https://img.icons8.com/fluency/48/windows-11.png",url:"",isDownload:false},
     {name:"macOS",icon:"https://img.icons8.com/color/48/mac-os.png",url:"",isDownload:false}
 ];
 
 const container = document.getElementById("platforms");
 
-downloads.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "platform-card";
+downloads.forEach(p=>{
+    const card=document.createElement("div");
+    card.className="platform-card";
 
-    card.innerHTML = `
+    card.innerHTML=`
         <img src="${p.icon}">
         <p>${p.name}</p>
         ${
             p.isDownload
-            ? `<a class="download-btn" href="${p.url}" target="_blank">Download</a>`
+            ? `<a class="download-btn" href="${p.url}">Download</a>`
             : `<div class="download-btn disabled">Unavailable</div>`
         }
     `;
@@ -230,18 +246,18 @@ downloads.forEach(p => {
     container.appendChild(card);
 });
 
-// SCROLL ANIMATION
-const sections = document.querySelectorAll(".section");
+/* SCROLL ANIMATION */
+const sections=document.querySelectorAll(".section");
 
-window.addEventListener("scroll", () => {
-    sections.forEach(sec => {
-        if(sec.getBoundingClientRect().top < window.innerHeight - 100){
-            sec.classList.add("show");
+window.addEventListener("scroll",()=>{
+    sections.forEach(s=>{
+        if(s.getBoundingClientRect().top<window.innerHeight-100){
+            s.classList.add("show");
         }
     });
 });
 
-// SMOOTH SCROLL
+/* SMOOTH SCROLL */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.onclick=e=>{
         e.preventDefault();
@@ -249,6 +265,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
         .scrollIntoView({behavior:"smooth"});
     };
 });
+
 </script>
 
 </body>
