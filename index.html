@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-/* 🌌 BACKGROUND */
+/* BACKGROUND */
 body::before {
     content: "";
     position: fixed;
@@ -49,7 +49,21 @@ body::before {
     -webkit-text-fill-color: transparent;
 }
 
-/* LANGUAGE BUTTONS */
+/* NAV LINKS LIKE ROUTES */
+.nav-links a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background: #3498db;
+}
+
+/* LANGUAGE */
 .lang button {
     margin-left: 5px;
     padding: 6px 10px;
@@ -60,31 +74,31 @@ body::before {
     color: white;
 }
 
-.lang button:hover {
-    background: #3498db;
-}
-
-/* SECTION */
-.section {
+/* SECTIONS (SPA PAGES) */
+.page {
+    display: none;
     padding: 80px 20px;
     text-align: center;
     opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s;
+    transform: translateY(30px);
+    transition: 0.6s ease;
 }
 
-.section.show {
+.page.active {
+    display: block;
     opacity: 1;
     transform: translateY(0);
 }
 
+/* TEXT */
 .subtitle {
     color: #aaa;
     max-width: 650px;
     margin: auto;
+    line-height: 1.6;
 }
 
-/* 🌈 BUTTON ULTRA */
+/* BUTTON */
 .cta-btn, .download-btn {
     display: inline-block;
     margin-top: 20px;
@@ -119,11 +133,6 @@ body::before {
     100%{box-shadow:0 0 5px #3498db}
 }
 
-.download-btn.disabled {
-    background: gray;
-    animation: none;
-}
-
 /* GRID */
 .platform-grid {
     display: grid;
@@ -137,10 +146,8 @@ body::before {
 .platform-card {
     padding: 20px;
     border-radius: 12px;
-
     background: linear-gradient(#111,#111) padding-box,
-    linear-gradient(90deg,#3498db,#e74c3c,#2ecc71,#f1c40f) border-box;
-
+                linear-gradient(90deg,#3498db,#e74c3c,#2ecc71,#f1c40f) border-box;
     border: 1px solid transparent;
     transition: 0.4s;
 }
@@ -170,6 +177,12 @@ footer {
 <nav class="navbar">
     <div class="logo">Maszx GO</div>
 
+    <div class="nav-links">
+        <a href="#/home" onclick="navigate('home')">Home</a>
+        <a href="#/download" onclick="navigate('download')">Download</a>
+        <a href="#/info" onclick="navigate('info')">Info</a>
+    </div>
+
     <div class="lang">
         <button onclick="setLang('en')">EN</button>
         <button onclick="setLang('ru')">RU</button>
@@ -177,34 +190,56 @@ footer {
 </nav>
 
 <!-- HOME -->
-<section id="home" class="section">
+<div id="home" class="page active">
     <h1 id="title">Maszx GO 🚀</h1>
     <p class="subtitle" id="desc"></p>
-    <a href="#downloads" class="cta-btn" id="btn"></a>
-</section>
+    <a class="cta-btn" onclick="navigate('download')">Get Started</a>
+</div>
 
-<!-- DOWNLOADS -->
-<section id="downloads" class="section">
-    <h2 id="dlTitle"></h2>
+<!-- DOWNLOAD -->
+<div id="download" class="page">
+    <h2 id="dlTitle">Download Center</h2>
     <div class="platform-grid" id="platforms"></div>
-</section>
+</div>
+
+<!-- INFO -->
+<div id="info" class="page">
+    <h2>Information</h2>
+    <p class="subtitle">
+        Maszx GO is a modern optimized system with fast downloads,
+        lightweight UI, and multi-language support (EN / RU / Other).
+    </p>
+</div>
 
 <footer>© 2022-2026 MaszxGo Systems</footer>
 
 <script>
 
-/* 🌍 LANGUAGE SYSTEM */
+/* ROUTER SYSTEM (like /home /download) */
+function navigate(page){
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+    window.location.hash = page;
+}
+
+/* LOAD FROM URL */
+if(location.hash){
+    navigate(location.hash.replace("#/",""));
+}
+
+/* LANGUAGE SYSTEM */
 const lang = {
     en:{
         title:"Maszx GO 🚀",
         desc:"Fast, stable and optimized download platform.",
-        btn:"Get Started",
         dl:"Download Center"
     },
     ru:{
         title:"Maszx GO 🚀",
         desc:"Быстрая и стабильная платформа загрузок.",
-        btn:"Начать",
         dl:"Центр загрузок"
     }
 };
@@ -212,17 +247,16 @@ const lang = {
 function setLang(l){
     document.getElementById("title").innerText = lang[l].title;
     document.getElementById("desc").innerText = lang[l].desc;
-    document.getElementById("btn").innerText = lang[l].btn;
     document.getElementById("dlTitle").innerText = lang[l].dl;
 }
 
-/* DEFAULT */
+/* DEFAULT LANGUAGE */
 setLang("en");
 
 /* DOWNLOAD DATA */
 const downloads = [
-    {name:"Android",icon:"https://img.icons8.com/color/48/android-os.png",url:"#",isDownload:true},
-    {name:"Android Offline",icon:"https://img.icons8.com/color/48/android-os.png",url:"#",isDownload:true},
+    {name:"Android",icon:"https://img.icons8.com/color/48/android-os.png",url:"https://www.mediafire.com/file/c1suz7dv537n855/Maszx_GO_-_Beta_1.0.0.apk/file",isDownload:true},
+    {name:"Android Offline",icon:"https://img.icons8.com/color/48/android-os.png",url:"https://www.mediafire.com/file/iigz5swq2jobaz4/Maszx_GO_-_Offline_1.0.2.apk/file",isDownload:true},
     {name:"PC",icon:"https://img.icons8.com/fluency/48/windows-11.png",url:"",isDownload:false},
     {name:"macOS",icon:"https://img.icons8.com/color/48/mac-os.png",url:"",isDownload:false}
 ];
@@ -244,26 +278,6 @@ downloads.forEach(p=>{
     `;
 
     container.appendChild(card);
-});
-
-/* SCROLL ANIMATION */
-const sections=document.querySelectorAll(".section");
-
-window.addEventListener("scroll",()=>{
-    sections.forEach(s=>{
-        if(s.getBoundingClientRect().top<window.innerHeight-100){
-            s.classList.add("show");
-        }
-    });
-});
-
-/* SMOOTH SCROLL */
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.onclick=e=>{
-        e.preventDefault();
-        document.querySelector(a.getAttribute("href"))
-        .scrollIntoView({behavior:"smooth"});
-    };
 });
 
 </script>
