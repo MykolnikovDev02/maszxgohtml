@@ -49,7 +49,7 @@ body::before {
     -webkit-text-fill-color: transparent;
 }
 
-/* NAV LINKS LIKE ROUTES */
+/* NAV LINKS */
 .nav-links a {
     margin-left: 15px;
     color: white;
@@ -74,7 +74,7 @@ body::before {
     color: white;
 }
 
-/* SECTIONS (SPA PAGES) */
+/* PAGE SYSTEM */
 .page {
     display: none;
     padding: 80px 20px;
@@ -106,7 +106,6 @@ body::before {
     border-radius: 8px;
     text-decoration: none;
     color: white;
-
     background: linear-gradient(270deg,#3498db,#e74c3c,#2ecc71,#f1c40f);
     background-size: 600% 600%;
     animation: gradientMove 8s ease infinite, glow 3s infinite;
@@ -117,14 +116,12 @@ body::before {
     transform: scale(1.1);
 }
 
-/* GRADIENT */
 @keyframes gradientMove {
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
 
-/* GLOW */
 @keyframes glow {
     0%{box-shadow:0 0 5px #3498db}
     25%{box-shadow:0 0 15px #e74c3c}
@@ -157,9 +154,32 @@ body::before {
     box-shadow: 0 0 15px #3498db,0 0 15px #e74c3c,0 0 15px #2ecc71,0 0 15px #f1c40f;
 }
 
-.platform-card img {
-    width: 48px;
-    margin-bottom: 10px;
+/* DISCORD CARD */
+.discord-card {
+    max-width: 500px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.discord-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: #5865F2;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.discord-btn:hover {
+    transform: scale(1.1);
+    background: #4752C4;
 }
 
 /* FOOTER */
@@ -181,6 +201,7 @@ footer {
         <a href="#/home" onclick="navigate('home')">Home</a>
         <a href="#/download" onclick="navigate('download')">Download</a>
         <a href="#/info" onclick="navigate('info')">Info</a>
+        <a href="#/discord" onclick="navigate('discord')">Discord</a>
     </div>
 
     <div class="lang">
@@ -191,14 +212,14 @@ footer {
 
 <!-- HOME -->
 <div id="home" class="page active">
-    <h1 id="title">Maszx GO 🚀</h1>
-    <p class="subtitle" id="desc"></p>
+    <h1>Maszx GO 🚀</h1>
+    <p class="subtitle">Fast, stable and optimized download platform.</p>
     <a class="cta-btn" onclick="navigate('download')">Get Started</a>
 </div>
 
 <!-- DOWNLOAD -->
 <div id="download" class="page">
-    <h2 id="dlTitle">Download Center</h2>
+    <h2>Download</h2>
     <div class="platform-grid" id="platforms"></div>
 </div>
 
@@ -206,16 +227,32 @@ footer {
 <div id="info" class="page">
     <h2>Information</h2>
     <p class="subtitle">
-        Maszx GO is a modern optimized system with fast downloads,
-        lightweight UI, and multi-language support (EN / RU / Other).
+        Maszx GO is a modern system with fast downloads,
+        lightweight UI, and multi-language support.
     </p>
+</div>
+
+<!-- DISCORD -->
+<div id="discord" class="page">
+    <h2>Community Discord</h2>
+
+    <div class="discord-card">
+        <h3>Join Our Community</h3>
+        <p class="subtitle">
+            Chat with users, get updates, report bugs, and join events.
+        </p>
+
+        <a class="discord-btn" href="https://discord.gg/hhDBvCe92" target="_blank">
+            Join Discord
+        </a>
+    </div>
 </div>
 
 <footer>© 2022-2026 MaszxGo Systems</footer>
 
 <script>
 
-/* ROUTER SYSTEM (like /home /download) */
+/* ROUTER */
 function navigate(page){
     document.querySelectorAll(".page").forEach(p=>{
         p.classList.remove("active");
@@ -225,33 +262,9 @@ function navigate(page){
     window.location.hash = page;
 }
 
-/* LOAD FROM URL */
 if(location.hash){
     navigate(location.hash.replace("#/",""));
 }
-
-/* LANGUAGE SYSTEM */
-const lang = {
-    en:{
-        title:"Maszx GO 🚀",
-        desc:"Fast, stable and optimized download platform.",
-        dl:"Download Center"
-    },
-    ru:{
-        title:"Maszx GO 🚀",
-        desc:"Быстрая и стабильная платформа загрузок.",
-        dl:"Центр загрузок"
-    }
-};
-
-function setLang(l){
-    document.getElementById("title").innerText = lang[l].title;
-    document.getElementById("desc").innerText = lang[l].desc;
-    document.getElementById("dlTitle").innerText = lang[l].dl;
-}
-
-/* DEFAULT LANGUAGE */
-setLang("en");
 
 /* DOWNLOAD DATA */
 const downloads = [
