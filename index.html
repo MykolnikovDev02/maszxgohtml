@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Maszx GO | Next‑Gen Blockman Experience</title>
+<title>Maszx GO | CHROMA WAVE · Animated Ultimate</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Maszx GO — the enhanced Blockman GO client with new games, avatars, events and exclusive features.">
 <style>
 * {
     margin: 0;
@@ -14,301 +13,395 @@
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', 'Poppins', system-ui, -apple-system, 'Inter', sans-serif;
-    background: radial-gradient(circle at 10% 20%, #0b1220, #020617);
-    color: #f0f3fa;
+    font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, sans-serif;
+    background: #03050b;
+    color: #ffffff;
     overflow-x: hidden;
-    scroll-behavior: smooth;
+    position: relative;
+    min-height: 100vh;
 }
 
-/* animated dotted background */
-body::before {
-    content: "";
+/* CANVAS BACKGROUND - DYNAMIC PARTICLE WAVE */
+#canvas-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* OVERLAY TO IMPROVE READABILITY BUT KEEP COLORFUL */
+.overlay-glow {
     position: fixed;
     inset: 0;
-    width: 200%;
-    height: 200%;
-    background-image: radial-gradient(rgba(255,255,255,0.12) 1.2px, transparent 1.2px);
-    background-size: 48px 48px;
-    animation: drift 90s linear infinite;
-    opacity: 0.25;
-    pointer-events: none;
+    background: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
     z-index: -1;
+    pointer-events: none;
 }
 
-@keyframes drift {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-320px, -320px); }
-}
-
-/* navbar styles + mobile menu */
+/* NAVBAR - GLASS ULTRA */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(2, 6, 23, 0.75);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(16px);
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, #0ff, #f0f, #ff0, #0f0, #f66) 1;
+    border-image-slice: 1;
     position: sticky;
     top: 0;
     z-index: 100;
     flex-wrap: wrap;
+    box-shadow: 0 0 28px rgba(0, 255, 255, 0.3);
 }
 
 .logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #3498db, #e74c3c, #2ecc71, #f1c40f);
-    background-size: 240% 240%;
+    font-size: 1.9rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #0ff, #ff3b6f, #ffd966, #3eff9e, #c85bff);
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: superGradient 4s ease infinite, textPulse 2s ease infinite alternate;
     letter-spacing: -0.5px;
-    transition: 0.3s;
-    cursor: default;
 }
 
-/* desktop menu */
+@keyframes superGradient {
+    0% { background-position: 0% 50%;}
+    50% { background-position: 100% 50%;}
+    100% { background-position: 0% 50%;}
+}
+
+@keyframes textPulse {
+    0% { text-shadow: 0 0 2px cyan; }
+    100% { text-shadow: 0 0 18px #ff44aa, 0 0 8px #ffff66; }
+}
+
 .nav-links {
     display: flex;
-    gap: 0.7rem;
+    gap: 1rem;
     flex-wrap: wrap;
-    transition: all 0.3s ease;
 }
 
 .nav-links a {
-    color: #eef5ff;
+    color: #f0f3ff;
     text-decoration: none;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    border-radius: 40px;
-    transition: all 0.25s;
+    font-weight: 700;
+    padding: 0.5rem 1.3rem;
+    border-radius: 60px;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.6, 1.1);
     font-size: 0.95rem;
+    background: rgba(10, 20, 40, 0.6);
     backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 255, 255, 0.4);
+    box-shadow: 0 0 8px rgba(0,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.nav-links a:hover::before {
+    left: 100%;
 }
 
 .nav-links a:hover {
-    background: rgba(52, 152, 219, 0.25);
-    color: white;
-    transform: translateY(-2px);
+    transform: scale(1.07) translateY(-2px);
+    background: rgba(0, 150, 255, 0.3);
+    border-color: #ffcc33;
+    box-shadow: 0 0 20px #ffcc33, 0 0 8px #33ff66;
 }
 
 .nav-links a.active-link {
-    background: linear-gradient(120deg, #3498db, #2c3e66);
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-    color: white;
-}
-
-/* language switcher */
-.lang {
-    display: flex;
-    gap: 8px;
+    background: linear-gradient(100deg, #ff3b6f, #aa55ff);
+    border-color: #ffd966;
+    box-shadow: 0 0 24px #ff3b6f, 0 0 12px #33ff66;
 }
 
 .lang button {
-    background: rgba(20, 30, 55, 0.8);
-    border: 1px solid rgba(255,255,240,0.2);
-    padding: 6px 14px;
-    border-radius: 40px;
-    color: white;
-    font-weight: 600;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid #ff66cc;
+    padding: 5px 14px;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
-    backdrop-filter: blur(4px);
+    margin-left: 6px;
 }
 
 .lang button.active-lang {
-    background: #3498db;
-    border-color: #3498db;
-    box-shadow: 0 0 8px #3498db;
+    background: #ff3366;
+    border-color: #ffcc33;
+    box-shadow: 0 0 14px #ff3366;
+    animation: pulseBtn 1s infinite alternate;
 }
 
-.lang button:hover {
-    background: #3a6ea5;
-    transform: scale(0.96);
+@keyframes pulseBtn {
+    from { box-shadow: 0 0 4px #ff3366; }
+    to { box-shadow: 0 0 18px #ffaa44; }
 }
 
-/* hamburger for small screens */
 .menu-toggle {
     display: none;
-    background: rgba(255,255,255,0.1);
-    border: none;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid #0ff;
     font-size: 1.8rem;
-    color: white;
     cursor: pointer;
-    border-radius: 12px;
-    width: 44px;
-    height: 44px;
+    border-radius: 20px;
+    width: 48px;
+    height: 48px;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(8px);
+    transition: 0.2s;
 }
 
-/* page container */
-.page-container {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+.menu-toggle:hover {
+    transform: rotate(90deg);
+    background: #ff33aa40;
 }
 
+/* PAGES */
 .page {
     display: none;
-    padding: 4rem 1rem 3rem;
+    padding: 3.5rem 1rem 4rem;
     text-align: center;
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.4s ease;
+    transform: translateY(40px) scale(0.97);
+    transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.2), transform 0.5s ease;
     min-height: 70vh;
 }
 
 .page.active-page {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
-/* headings */
+/* ANIMATED TITLE RAINBOW */
 h1, h2 {
-    font-size: 3.2rem;
-    font-weight: 800;
-    background: linear-gradient(145deg, #ffffff, #9bc0e8);
-    background-clip: text;
+    font-size: 3.8rem;
+    font-weight: 900;
+    background: linear-gradient(125deg, #00ffff, #ff4d6d, #ffe66d, #6eff8e, #c084fc, #ff44cc);
+    background-size: 400% auto;
     -webkit-background-clip: text;
+    background-clip: text;
     color: transparent;
+    animation: rainbowFlow 8s linear infinite, glitchFloat 3s ease infinite alternate;
     margin-bottom: 1rem;
 }
 
+@keyframes rainbowFlow {
+    0% { background-position: 0% 50%;}
+    100% { background-position: 200% 50%;}
+}
+
+@keyframes glitchFloat {
+    0% { transform: translateY(0px); text-shadow: 0 0 2px cyan; }
+    100% { transform: translateY(-3px); text-shadow: 0 0 18px magenta, 0 0 8px yellow; }
+}
+
 h2 {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
 }
 
 .subtitle {
-    font-size: 1.1rem;
-    color: #cbd5e6;
-    max-width: 750px;
+    font-size: 1.15rem;
+    color: #f0eefc;
+    max-width: 800px;
     margin: 1.2rem auto;
-    line-height: 1.65;
-    font-weight: 400;
+    line-height: 1.6;
+    text-shadow: 0 0 6px #00aaff;
+    animation: fadeGlow 3s infinite alternate;
 }
 
+@keyframes fadeGlow {
+    0% { text-shadow: 0 0 2px #0ff; opacity: 0.9;}
+    100% { text-shadow: 0 0 14px #ff66cc, 0 0 5px #ffcc00; opacity: 1;}
+}
+
+/* BUTTON ANIMATION SUPERNOVA */
 .cta-btn, .download-btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 1.2rem;
-    padding: 0.9rem 2rem;
+    gap: 10px;
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.2rem;
     border-radius: 60px;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
-    background: linear-gradient(100deg, #1e2f45, #101b2b);
+    background: linear-gradient(120deg, #ff0066, #ffcc00, #00ccff, #aa44ff);
+    background-size: 300% 100%;
     color: white;
-    border: 1px solid rgba(52,152,219,0.6);
-    transition: all 0.25s ease;
+    border: none;
+    transition: 0.3s;
     cursor: pointer;
     font-size: 1rem;
-    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+    animation: buttonPulse 1.8s infinite alternate, borderGlow 2s infinite;
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(1); box-shadow: 0 0 6px #ff3366, 0 0 12px #ffcc33; background-position: 0% 50%;}
+    100% { transform: scale(1.05); box-shadow: 0 0 28px #33ff66, 0 0 22px #ff44aa; background-position: 100% 50%;}
+}
+
+@keyframes borderGlow {
+    0% { border: 1px solid rgba(255,51,102,0.6);}
+    50% { border: 1px solid rgba(51,255,102,0.9);}
+    100% { border: 1px solid rgba(0,255,255,0.9);}
 }
 
 .cta-btn:hover, .download-btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 20px rgba(52,152,219,0.3);
-    border-color: #3498db;
+    animation: none;
+    transform: scale(1.08);
+    filter: brightness(1.1);
+    box-shadow: 0 0 40px #ffaa33, 0 0 25px #ff33aa;
 }
 
-/* platform grid */
+/* PLATFORM CARDS - MOVE AND GLOW */
 .platform-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 2rem;
-    max-width: 1000px;
-    margin: 2rem auto;
+    max-width: 1100px;
+    margin: 2.5rem auto;
 }
 
 .platform-card {
-    background: rgba(12, 20, 35, 0.65);
-    backdrop-filter: blur(8px);
-    padding: 1.8rem 1rem;
-    border-radius: 32px;
+    background: rgba(8, 12, 28, 0.7);
+    backdrop-filter: blur(12px);
+    padding: 1.6rem 0.8rem;
+    border-radius: 40px;
     text-align: center;
-    border: 1px solid rgba(72, 187, 255, 0.2);
-    transition: all 0.3s;
-    box-shadow: 0 12px 25px -12px rgba(0,0,0,0.4);
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    animation: cardFloatIn 0.6s ease backwards;
+    position: relative;
+    animation-delay: calc(0.05s * var(--i, 1));
 }
 
 .platform-card:hover {
-    transform: translateY(-8px);
-    border-color: #3498db;
-    box-shadow: 0 20px 30px -12px rgba(52,152,219,0.3);
+    transform: translateY(-16px) scale(1.02) rotate(1deg);
+    box-shadow: 0 0 38px #ff44aa, 0 0 22px #00ffff;
+    animation: none;
+}
+
+.platform-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 42px;
+    background: linear-gradient(95deg, #0ff, #f0f, #ff0, #0f0, #f66);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.platform-card:hover::after {
+    opacity: 1;
 }
 
 .platform-card img {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 12px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    width: 58px;
+    height: 58px;
+    filter: drop-shadow(0 0 6px cyan);
+    transition: transform 0.3s;
 }
 
-.platform-card p {
-    font-weight: 600;
-    font-size: 1.2rem;
-    margin: 12px 0;
+.platform-card:hover img {
+    transform: scale(1.15) rotate(5deg);
 }
 
-.download-btn.disabled {
-    background: #2a3346;
-    border-color: #4a5b77;
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-    pointer-events: none;
+@keyframes cardFloatIn {
+    from { opacity: 0; transform: translateY(60px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
-/* discord card */
+/* DISCORD CARD - SPINNING BORDER */
 .discord-card {
-    max-width: 550px;
+    max-width: 580px;
     margin: 2rem auto;
-    padding: 2rem 2rem;
-    border-radius: 48px;
-    background: rgba(20, 30, 55, 0.55);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(88, 101, 242, 0.6);
-    transition: 0.3s;
+    padding: 2.2rem;
+    border-radius: 60px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(18px);
+    position: relative;
+    animation: depthPulse 3s infinite alternate;
 }
 
-.discord-card h3 {
-    font-size: 1.9rem;
-    margin-bottom: 0.75rem;
+.discord-card::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 62px;
+    background: linear-gradient(125deg, #ff66cc, #33ffcc, #ffcc44, #ff3366, #aa55ff);
+    background-size: 300% 300%;
+    z-index: -1;
+    animation: rotateBorder 4s linear infinite;
+}
+
+@keyframes rotateBorder {
+    0% { background-position: 0% 50%; transform: rotate(0deg); }
+    100% { background-position: 200% 50%; transform: rotate(360deg); }
+}
+
+@keyframes depthPulse {
+    0% { box-shadow: 0 0 10px #ff44aa; transform: scale(0.99);}
+    100% { box-shadow: 0 0 48px #33ffaa, 0 0 28px #ffcc44; transform: scale(1.01);}
 }
 
 .discord-btn {
     display: inline-block;
-    margin-top: 1.6rem;
-    padding: 12px 34px;
-    border-radius: 200px;
-    background: #5865F2;
-    color: white;
-    text-decoration: none;
+    margin-top: 1.2rem;
+    padding: 12px 36px;
+    border-radius: 60px;
+    background: linear-gradient(90deg, #5865F2, #aa55ff);
     font-weight: bold;
-    transition: 0.2s;
-    box-shadow: 0 4px 12px rgba(88,101,242,0.4);
+    transition: 0.3s;
+    box-shadow: 0 0 18px #5865f2;
+    text-decoration: none;
+    color: white;
+    animation: bounceLight 1.5s infinite alternate;
+}
+
+@keyframes bounceLight {
+    from { transform: translateY(0px);}
+    to { transform: translateY(-5px); box-shadow: 0 0 32px #ffaa44;}
 }
 
 .discord-btn:hover {
-    background: #4752c4;
-    transform: scale(1.02);
-    box-shadow: 0 8px 18px #5865f280;
+    transform: scale(1.06) translateY(-3px);
+    background: linear-gradient(90deg, #ff44aa, #ffaa44);
+    animation: none;
 }
 
 footer {
     text-align: center;
-    padding: 2rem 1rem;
-    color: #7e8aa2;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    margin-top: 2rem;
+    padding: 1.8rem;
+    color: #bbccff;
+    border-top: 1px solid rgba(255, 80, 200, 0.4);
+    backdrop-filter: blur(4px);
+    position: relative;
 }
 
-/* responsive */
+/* RESPONSIVE */
 @media (max-width: 780px) {
     .navbar {
         padding: 0.8rem 1.2rem;
@@ -321,48 +414,37 @@ footer {
         width: 100%;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        gap: 0.9rem;
         margin-top: 1rem;
-        padding: 1rem 0;
-        background: rgba(0,0,0,0.6);
-        backdrop-filter: blur(12px);
-        border-radius: 28px;
+        background: rgba(0,0,0,0.85);
+        border-radius: 32px;
+        padding: 1rem;
     }
     .nav-links.show {
         display: flex;
-    }
-    .lang {
-        margin-left: auto;
-    }
-    .logo {
-        font-size: 1.5rem;
     }
     h1 {
         font-size: 2.4rem;
     }
     .page {
-        padding: 2.5rem 0.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .platform-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+        padding: 2rem 0.8rem;
     }
 }
 </style>
 </head>
 <body>
 
+<canvas id="canvas-bg"></canvas>
+<div class="overlay-glow"></div>
+
 <nav class="navbar">
-    <div class="logo">⚡ MASZX GO</div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    <div class="logo">⚡ MASZX GO - official</div>
+    <button class="menu-toggle" id="menuToggle">🌀</button>
     <div class="nav-links" id="navLinks">
-        <a href="#home" data-page="home">🏠 Home</a>
-        <a href="#download" data-page="download">📥 Download</a>
-        <a href="#info" data-page="info">ℹ️ Info</a>
-        <a href="#discord" data-page="discord">💬 Discord</a>
+        <a href="#home" data-page="home">🏠 HOME</a>
+        <a href="#download" data-page="download">📥 DOWNLOAD</a>
+        <a href="#info" data-page="info">ℹ️ INFO</a>
+        <a href="#discord" data-page="discord">💬 DISCORD</a>
     </div>
     <div class="lang">
         <button data-lang="en" class="lang-btn">🇬🇧 EN</button>
@@ -371,93 +453,153 @@ footer {
 </nav>
 
 <div class="page-container">
-    <!-- HOME -->
     <div id="home" class="page active-page">
         <h1 id="homeTitle">Maszx GO 🚀</h1>
-        <p id="homeSub" class="subtitle">The next-generation release of Blockman GO. Play new games, unlock unique avatars, and enjoy exclusive rewards.</p>
-        <a class="cta-btn" id="homeCtaBtn">✨ Get Started →</a>
+        <p id="homeSub" class="subtitle">Next‑gen Blockman GO — ultra neon release. Play new games, customize with prismatic avatars, and join the chromatic revolution.</p>
+        <a class="cta-btn" id="homeCtaBtn">✨ GET STARTED →</a>
     </div>
 
-    <!-- DOWNLOAD -->
     <div id="download" class="page">
         <h2 id="downloadTitle">Download Maszx GO</h2>
         <div class="platform-grid" id="platformsContainer"></div>
     </div>
 
-    <!-- INFO -->
     <div id="info" class="page">
         <h2 id="infoTitle">Information</h2>
         <p id="infoText" class="subtitle">
             Maszx GO: The best Blockman GO experience yet.<br><br>
-            🎮 Games: We created a bunch of new games you can play and enjoy with new updates every month! Use the one-tap join to play our brand new games.<br><br>
-            🎨 Avatars: We included brand new decorations for your avatar. Customize it with the most unique decorations from the history of Blockman GO!<br><br>
-            👥 Friends: Make new friends from games, clans or just from the app! Chat with your friends using in-game chats, private chats or groups!<br><br>
-            📅 Events: We are making exciting events with tons of rewards! Make sure to get your daily rewards!<br><br>
-            👑 VIP System: You don't have to pay for VIP privileges anymore! Get them from our events!
+            🎮 Games: Brand new games with monthly updates. One-tap join to play our ultra modes.<br><br>
+            🎨 Avatars: Unique decorations, chromatic avatar customization from Blockman GO history.<br><br>
+            👥 Friends: Make friends across games, clans and chat with private messages & groups.<br><br>
+            📅 Events: Explosive events with huge rewards. Daily bonuses included.<br><br>
+            👑 VIP System: Free VIP privileges earned from events.
         </p>
     </div>
 
-    <!-- DISCORD -->
     <div id="discord" class="page">
         <h2 id="discordTitle">Community Discord</h2>
         <div class="discord-card">
-            <h3 id="discordHeader">✨ Join The Inner Circle</h3>
-            <p id="discordDesc" class="subtitle">Chat with players, get early updates, report bugs, and join exclusive events.</p>
+            <h3 id="discordHeader">✨ Join The Prismatic Circle</h3>
+            <p id="discordDesc" class="subtitle">Connect with players, get early updates, report bugs, and take part in colorful events.</p>
             <a class="discord-btn" id="discordLink" href="https://discord.gg/hhDBvCe92" target="_blank">Join Discord →</a>
         </div>
     </div>
 </div>
 
-<footer>© 2022-2026 MaszxGo Systems — advanced gameplay, limitless fun</footer>
+<footer>© 2022-2026 MaszxGo Systems</footer>
 
 <script>
-    // ---------- TRANSLATIONS (EN / RU) ----------
+    // ---------- ANIMATED CANVAS PARTICLES (BLUE, RED, YELLOW, GREEN, PURPLE) ----------
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let particles = [];
+
+    function resizeCanvas() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        initParticles(140);
+    }
+
+    function initParticles(count) {
+        particles = [];
+        const colors = ['#00aaff', '#ff3366', '#ffcc33', '#33ff66', '#aa55ff'];
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 3 + 1.5,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedX: (Math.random() - 0.5) * 0.6,
+                speedY: (Math.random() - 0.5) * 0.4,
+                alpha: Math.random() * 0.6 + 0.2,
+                pulse: Math.random() * Math.PI * 2,
+            });
+        }
+    }
+
+    function animateParticles() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, width, height);
+        for (let p of particles) {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if (p.x < -20) p.x = width + 20;
+            if (p.x > width + 20) p.x = -20;
+            if (p.y < -20) p.y = height + 20;
+            if (p.y > height + 20) p.y = -20;
+            
+            p.pulse += 0.02;
+            const glowAlpha = Math.sin(p.pulse) * 0.2 + 0.5;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius + Math.sin(p.pulse) * 1.2, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = p.color;
+            ctx.globalAlpha = p.alpha * 0.7;
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius * 0.6, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.globalAlpha = 0.5;
+            ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
+        requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+    });
+    resizeCanvas();
+    animateParticles();
+
+    // ---------- PAGE LOGIC & TRANSLATIONS (EN / RU) ----------
     const translations = {
         en: {
             homeTitle: "Maszx GO 🚀",
-            homeSub: "The next-generation release of Blockman GO. Play new games, unlock unique avatars, and enjoy exclusive rewards.",
-            homeCta: "✨ Get Started →",
+            homeSub: "Next‑gen Blockman GO — ultra neon release. Play new games, customize with prismatic avatars, and join the chromatic revolution.",
+            homeCta: "✨ GET STARTED →",
             downloadTitle: "Download Maszx GO",
             infoTitle: "Information",
-            infoText: "Maszx GO: The best Blockman GO experience yet.\n\n🎮 Games: We created a bunch of new games you can play and enjoy with new updates every month! Use the one-tap join to play our brand new games.\n\n🎨 Avatars: We included brand new decorations for your avatar. Customize it with the most unique decorations from the history of Blockman GO!\n\n👥 Friends: Make new friends from games, clans or just from the app! Chat with your friends using in-game chats, private chats or groups!\n\n📅 Events: We are making exciting events with tons of rewards! Make sure to get your daily rewards!\n\n👑 VIP System: You don't have to pay for VIP privileges anymore! Get them from our events!",
+            infoText: "Maszx GO: The best Blockman GO experience yet.\n\n🎮 Games: Brand new games with monthly updates. One-tap join to play our ultra modes.\n\n🎨 Avatars: Unique decorations, chromatic avatar customization from Blockman GO history.\n\n👥 Friends: Make friends across games, clans and chat with private messages & groups.\n\n📅 Events: Explosive events with huge rewards. Daily bonuses included.\n\n👑 VIP System: Free VIP privileges earned from events.",
             discordTitle: "Community Discord",
-            discordHeader: "✨ Join The Inner Circle",
-            discordDesc: "Chat with players, get early updates, report bugs, and join exclusive events.",
+            discordHeader: "✨ Join The Prismatic Circle",
+            discordDesc: "Connect with players, get early updates, report bugs, and take part in colorful events.",
             discordBtn: "Join Discord →",
-            platforms: [
-                { name: "Android", offlineName: "Android Offline", pcName: "PC", macName: "macOS", unavailableText: "Soon" },
-            ],
-            btnDownload: "Download",
+            btnDownload: "DOWNLOAD",
             btnUnavailable: "Unavailable"
         },
         ru: {
             homeTitle: "Maszx GO 🚀",
-            homeSub: "Новейшая версия Blockman GO. Играйте в новые игры, получайте уникальные аватары и эксклюзивные награды.",
-            homeCta: "✨ Начать →",
+            homeSub: "Blockman GO нового поколения — ультра неон. Новые игры, хроматические аватары, революция цвета.",
+            homeCta: "✨ НАЧАТЬ →",
             downloadTitle: "Скачать Maszx GO",
             infoTitle: "Информация",
-            infoText: "Maszx GO: Лучший опыт Blockman GO.\n\n🎮 Игры: Мы создали множество новых игр, наслаждайтесь ежемесячными обновлениями! Присоединяйтесь в один клик.\n\n🎨 Аватары: Новейшие украшения для вашего аватара. Уникальные предметы за всю историю Blockman GO!\n\n👥 Друзья: Заводите друзей в играх, кланах или прямо в приложении. Общайтесь через чаты, личные сообщения и группы!\n\n📅 События: Захватывающие события с кучей наград! Получайте ежедневные бонусы.\n\n👑 VIP система: VIP-привилегии теперь бесплатны! Получите их на событиях.",
+            infoText: "Maszx GO: Лучший опыт Blockman GO.\n\n🎮 Игры: Новые игры с ежемесячными обновлениями.\n\n🎨 Аватары: Уникальные украшения, хроматический стиль.\n\n👥 Друзья: Общайтесь в чатах, группах.\n\n📅 События: Яркие ивенты с наградами.\n\n👑 VIP система: Бесплатные VIP привилегии.",
             discordTitle: "Дискорд сообщество",
-            discordHeader: "✨ Присоединяйся к сообществу",
-            discordDesc: "Общайся с игроками, получай ранние обновления, сообщай об ошибках и участвуй в ивентах.",
+            discordHeader: "✨ Присоединяйся к хроматическому кругу",
+            discordDesc: "Общайся, получай обновления, участвуй в цветных событиях.",
             discordBtn: "Присоединиться →",
-            btnDownload: "Скачать",
-            btnUnavailable: "Скоро"
+            btnDownload: "СКАЧАТЬ",
+            btnUnavailable: "СКОРО"
         }
     };
 
-    // platform data (static apk links + upcoming)
     const platformData = [
-        { id: "android_std", key: "Android", icon: "https://img.icons8.com/color/48/android-os.png", url: "https://www.mediafire.com/file/c1suz7dv537n855/Maszx_GO_-_Beta_1.0.0.apk/file", available: true },
-        { id: "android_off", key: "Android Offline", icon: "https://img.icons8.com/color/48/android-os.png", url: "https://www.mediafire.com/file/iigz5swq2jobaz4/Maszx_GO_-_Offline_1.0.2.apk/file", available: true },
-        { id: "pc_win", key: "PC", icon: "https://img.icons8.com/fluency/48/windows-11.png", url: "", available: false },
-        { id: "mac", key: "macOS", icon: "https://img.icons8.com/color/48/mac-os.png", url: "", available: false }
+        { key: "Android", icon: "https://img.icons8.com/color/48/android-os.png", url: "https://www.mediafire.com/file/c1suz7dv537n855/Maszx_GO_-_Beta_1.0.0.apk/file", available: true },
+        { key: "Android Offline", icon: "https://img.icons8.com/color/48/android-os.png", url: "https://www.mediafire.com/file/iigz5swq2jobaz4/Maszx_GO_-_Offline_1.0.2.apk/file", available: true },
+        { key: "PC", icon: "https://img.icons8.com/fluency/48/windows-11.png", url: "", available: false },
+        { key: "macOS", icon: "https://img.icons8.com/color/48/mac-os.png", url: "", available: false }
     ];
 
     let currentLang = "en";
     let currentPageId = "home";
-
-    // DOM elements
     const pages = document.querySelectorAll('.page');
     const navLinks = document.querySelectorAll('.nav-links a');
     const langBtns = document.querySelectorAll('.lang-btn');
@@ -465,123 +607,84 @@ footer {
     const menuToggle = document.getElementById('menuToggle');
     const navLinksDiv = document.getElementById('navLinks');
 
-    // ---- helper: update menu active highlight ----
     function setActiveNavLink(pageId) {
         navLinks.forEach(link => {
-            const targetPage = link.getAttribute('data-page');
-            if (targetPage === pageId) {
-                link.classList.add('active-link');
-            } else {
-                link.classList.remove('active-link');
-            }
+            if (link.getAttribute('data-page') === pageId) link.classList.add('active-link');
+            else link.classList.remove('active-link');
         });
     }
 
-    // ---- render download cards based on language & platform data ----
     function renderDownloadCards() {
         const t = translations[currentLang];
-        if (!platformsContainer) return;
         platformsContainer.innerHTML = "";
-        platformData.forEach(platform => {
+        platformData.forEach((plat, idx) => {
             const card = document.createElement('div');
             card.className = "platform-card";
-            let displayName = platform.key;
-            // translate special names if needed (android offline name adaptation)
-            if (platform.key === "Android Offline" && currentLang === 'ru') displayName = "Android (офлайн)";
-            else if (platform.key === "Android" && currentLang === 'ru') displayName = "Android";
-            else if (platform.key === "PC" && currentLang === 'ru') displayName = "ПК";
-            else if (platform.key === "macOS") displayName = "macOS";
-            else displayName = platform.key;
-            
-            const isAvailable = platform.available;
-            const buttonText = isAvailable ? t.btnDownload : t.btnUnavailable;
-            const buttonClass = isAvailable ? "download-btn" : "download-btn disabled";
-            const buttonLink = isAvailable ? platform.url : "#";
-            const targetAttr = isAvailable ? `href="${buttonLink}"` : `href="javascript:void(0)"`;
-            
+            card.style.setProperty('--i', idx + 1);
+            let displayName = plat.key;
+            if (currentLang === 'ru') {
+                if (plat.key === "Android Offline") displayName = "Android (офлайн)";
+                else if (plat.key === "PC") displayName = "ПК";
+                else displayName = plat.key;
+            }
+            const isAvail = plat.available;
+            const btnText = isAvail ? t.btnDownload : t.btnUnavailable;
+            const btnClass = isAvail ? "download-btn" : "download-btn disabled";
+            const linkAttr = isAvail ? `href="${plat.url}"` : 'href="javascript:void(0)"';
             card.innerHTML = `
-                <img src="${platform.icon}" alt="${displayName}" loading="lazy">
+                <img src="${plat.icon}" alt="${displayName}" loading="lazy">
                 <p>${displayName}</p>
-                <a ${targetAttr} class="${buttonClass}" ${!isAvailable ? 'style="pointer-events: none;"' : ''}>${buttonText}</a>
+                <a ${linkAttr} class="${btnClass}" ${!isAvail ? 'style="pointer-events: none;"' : ''}>${btnText}</a>
             `;
             platformsContainer.appendChild(card);
         });
     }
 
-    // ---- update full UI text based on language ----
     function updateLanguageUI() {
         const t = translations[currentLang];
-        if (!t) return;
         document.getElementById('homeTitle').innerText = t.homeTitle;
         document.getElementById('homeSub').innerText = t.homeSub;
-        const homeCta = document.getElementById('homeCtaBtn');
-        if(homeCta) homeCta.innerText = t.homeCta;
+        document.getElementById('homeCtaBtn').innerText = t.homeCta;
         document.getElementById('downloadTitle').innerText = t.downloadTitle;
         document.getElementById('infoTitle').innerText = t.infoTitle;
         document.getElementById('infoText').innerHTML = t.infoText.replace(/\n/g, '<br>');
         document.getElementById('discordTitle').innerText = t.discordTitle;
         document.getElementById('discordHeader').innerText = t.discordHeader;
         document.getElementById('discordDesc').innerText = t.discordDesc;
-        const discordBtn = document.getElementById('discordLink');
-        if(discordBtn) discordBtn.innerText = t.discordBtn;
-        
-        // re-render download cards with new language context
+        document.getElementById('discordLink').innerText = t.discordBtn;
         renderDownloadCards();
-        
-        // active language button style
         langBtns.forEach(btn => {
-            const langVal = btn.getAttribute('data-lang');
-            if (langVal === currentLang) {
-                btn.classList.add('active-lang');
-            } else {
-                btn.classList.remove('active-lang');
-            }
+            if (btn.getAttribute('data-lang') === currentLang) btn.classList.add('active-lang');
+            else btn.classList.remove('active-lang');
         });
     }
 
-    // ---- PAGE NAVIGATION (without reload) ----
     function navigateToPage(pageId) {
         if (!pageId) return;
-        // update pages visibility
         pages.forEach(page => {
-            if (page.id === pageId) {
-                page.classList.add('active-page');
-            } else {
-                page.classList.remove('active-page');
-            }
+            if (page.id === pageId) page.classList.add('active-page');
+            else page.classList.remove('active-page');
         });
         currentPageId = pageId;
         setActiveNavLink(pageId);
-        // update URL hash without jumping
         window.location.hash = pageId;
-        // close mobile menu after navigation (optional)
-        if (navLinksDiv && navLinksDiv.classList.contains('show')) {
-            navLinksDiv.classList.remove('show');
-        }
-        // scroll to top gently
+        if (navLinksDiv.classList.contains('show')) navLinksDiv.classList.remove('show');
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ---- handle hash change / initial load ----
     function handleHashChange() {
-        let hash = window.location.hash.slice(1); // remove #
-        if (!hash || !document.getElementById(hash)) {
-            hash = "home";
-        }
+        let hash = window.location.hash.slice(1);
+        if (!hash || !document.getElementById(hash)) hash = "home";
         navigateToPage(hash);
     }
 
-    // ---- language setter ----
     function setLanguage(lang) {
         if (!translations[lang]) return;
         currentLang = lang;
         updateLanguageUI();
-        // also re-translate any dynamic texts if needed, already covered
     }
 
-    // ---- event listeners & mobile menu ----
     function initEventListeners() {
-        // navigation links
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -589,31 +692,16 @@ footer {
                 if (pageId) navigateToPage(pageId);
             });
         });
-        
-        // home cta button redirect to download page
-        const homeCta = document.getElementById('homeCtaBtn');
-        if(homeCta) {
-            homeCta.addEventListener('click', () => navigateToPage('download'));
-        }
-        
-        // language buttons
+        document.getElementById('homeCtaBtn').addEventListener('click', () => navigateToPage('download'));
         langBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const lang = btn.getAttribute('data-lang');
-                if(lang) setLanguage(lang);
-            });
+            btn.addEventListener('click', () => setLanguage(btn.getAttribute('data-lang')));
         });
-        
-        // handle hash change (browser back/forward)
         window.addEventListener('hashchange', handleHashChange);
-        
-        // mobile menu toggle
         if (menuToggle && navLinksDiv) {
             menuToggle.addEventListener('click', (e) => {
                 e.stopPropagation();
                 navLinksDiv.classList.toggle('show');
             });
-            // close menu when clicking outside (optional)
             document.addEventListener('click', (event) => {
                 if (!navLinksDiv.contains(event.target) && !menuToggle.contains(event.target) && navLinksDiv.classList.contains('show')) {
                     navLinksDiv.classList.remove('show');
@@ -621,34 +709,19 @@ footer {
             });
         }
     }
-    
-    // ---- initial load and fallback for anchor ----
+
     function init() {
         initEventListeners();
-        // set default language to english
         currentLang = "en";
         updateLanguageUI();
-        // initial routing
         if (window.location.hash && window.location.hash !== "") {
-            let initialPage = window.location.hash.slice(1);
-            if (document.getElementById(initialPage)) {
-                currentPageId = initialPage;
-                navigateToPage(initialPage);
-            } else {
-                navigateToPage('home');
-            }
-        } else {
-            navigateToPage('home');
-        }
-        // add active-lang class default for EN
+            let initial = window.location.hash.slice(1);
+            if (document.getElementById(initial)) navigateToPage(initial);
+            else navigateToPage('home');
+        } else navigateToPage('home');
         setActiveNavLink(currentPageId);
-        // fallback for discord link translation link text
-        const discordBtnEl = document.getElementById('discordLink');
-        if(discordBtnEl && translations[currentLang]) discordBtnEl.innerText = translations[currentLang].discordBtn;
     }
-    
-    // start everything when DOM ready
-    document.addEventListener('DOMContentLoaded', init);
+    init();
 </script>
 </body>
 </html>
